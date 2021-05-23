@@ -1,0 +1,354 @@
+<html>
+
+    <head>
+        <title> Fake News Detector Home Page </title>
+        <link rel = "stylesheet" href = "{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+        <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    </head>
+
+    <body>
+        <!----------------------- Section 1 -------------------------->
+
+        <section id = "header">
+
+            <nav class = "navbar fixed-top navbar-dark bg-dark">
+                <div class="navbar-brand">
+                    <img class = "logo" src = "{{ url_for('static', filename='images/logo.png') }}"><h1 class = "title wow fadeInDown "> Fake News Detector </h1>
+                </div>
+                
+                <div class = "navbar">
+                    <a class="nav-item nav-link active" href="#"> Home </a>
+                    <a class = "nav-link" href = "#Features"> Features </a>
+                    <a class = "nav-link" href = "#About"> About Us </a>
+                    <a class = "nav-link" href = "{{ url_for('faq') }}"> FAQ </a>
+                    <a class = "nav-link" href = "#Contact"> Contact Us </a> 
+                </div>
+            </nav>
+
+            <div class = "search">
+                <h3> Enter Your Article Links Here <i class="fa fa-hand-o-down"></i></h3>
+                <form action='/' method='POST'>	
+                    <input class = "url-box" type = "text" placeholder = "Enter the url" name = "claim" id = "claim" value = "{{ claim }}" onclick="this.value=''">	
+                    <input class = "button" id = "open" type = "submit" name = "" value = "Predict">	
+                </form>
+            </div>
+
+            {% if articles %}
+                <div class = "container" style="margin-top:500px">
+                    {% if result_1 %}
+                    <div class="popup center active">
+                        <div>
+                            {% if result_1 == 'REAL'%}
+                                <img style="height:50px; width:50px margin=10px 0px " src = "{{ url_for('static', filename='images/check.png') }}">
+                            {% endif %}
+                            {% if result_1 == 'FAKE'%}
+                                <img style="height:50px; width:50px margin=10px 0px " src = "{{ url_for('static', filename='images/cross.png') }}">
+                            {% endif %}
+                        </div>
+                        <div class="title">
+                            Our Models think the given article is
+                            {% if result_1 == 'REAL'%}
+                                <b style="color:green" >REAL</b>
+                            {% else %}
+                                <b style="color:red" >FAKE</b>
+                            {% endif %}
+                             !!! 
+                        </div>
+
+                        <div class = "square">
+                            <div class = "box_left">
+                                <div class = "left">
+                                    <img class = "image" src = "{{ url_for('static', filename='images/robot1.jpg') }}">
+                                    <br>
+                                    <b>Model LR</b>
+                                </div>
+                                <div class = "right">
+                                    <div class="title">
+                                        {% if result_1 == 'REAL'%}
+                                            <b style="color:green" >REAL</b>
+                                        {% else %}
+                                            <b style="color:red" >FAKE</b>
+                                        {% endif %}
+                                    </div>
+                                    <!-- 
+                                    <div class="description">
+                                        <p> <b> Model Confidence <br> {{ confidence_1 }} </b></p>
+                                    </div> 
+                                    -->
+                                </div>
+                            </div>
+        
+                            <!-- <div class = "box_right">
+                                <div class = "left">
+                                    <img class = "image" src = "{{ url_for('static', filename='images/robot2.jpg') }}">
+                                    <br>
+                                    <b>Model PA</b>
+                                </div>
+                                <div class = "right">
+                                    <div class="title">
+                                        {% if result_2 == 'REAL'%}
+                                            <b style="color:green" >REAL</b>
+                                        {% else %}
+                                            <b style="color:red" >FAKE</b>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="conf-bar">
+                            <div style="margin: 10px 10px 10px 0px;">
+                              <b> Model Confidence : {{ confidence_1}}</b>
+                            </div>
+                            <div class="progress" style="height: 20px; width:700px; margin-left:30px">
+                                {% if confidence_1 > 90.0 %}
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ confidence_1 }}% " aria-valuenow="{{ confidence_1 }}" aria-valuemin="0" aria-valuemax="100"><b style="font-family: Arial, Helvetica, sans-serif;">{{ confidence_1 }}</b></div>
+                                {% elif confidence_1 > 75.0 %}
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ confidence_1 }}% " aria-valuenow="{{ confidence_1 }}" aria-valuemin="0" aria-valuemax="100"><b style="font-family: Arial, Helvetica, sans-serif;">{{ confidence_1 }}</b></div>
+                                {% elif confidence_1 > 60.0 %}
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ confidence_1 }}% " aria-valuenow="{{ confidence_1 }}" aria-valuemin="0" aria-valuemax="100"><b style="font-family: Arial, Helvetica, sans-serif;">{{ confidence_1 }}</b></div>
+                                {% else %}
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{ confidence_1 }}% " aria-valuenow="{{ confidence_1 }}" aria-valuemin="0" aria-valuemax="100"><b style="font-family: Arial, Helvetica, sans-serif;">{{ confidence_1 }}</b></div>
+                                {% endif %}
+                            </div>
+                          </div>
+
+                        {% if confidence_1 < 75.0 %}
+                        <div class="conf-div alert alert-danger">
+                            <p style="margin-bottom: 0px;"> Model Confidence is below 75. Please refer the related articles below : </p>
+                        </div>
+                        {% endif %}
+
+                        <div class = "container">
+                            <table>
+                                <tr class = "th">
+                                    <th> Source </th>
+                                    <th style="width:70%"> Article </th>
+                                    <!-- <th> Stance </th> -->
+                                </tr>
+                                    
+                                {% for article in articles %}
+            
+                                    <tr class = "tr">
+                                        <td class="dusra_td"> {{ article.pub }} </td>
+                                        <td> <a class = "anchor" href ="{{ article.url }}" target="_blank"> {{ article.title }} </a></td>
+                                        <!-- <td> {{ article.stance }} </td>       		 -->
+                                    </tr>
+            
+                                {% endfor %}
+                            </table>
+                        </div>
+                        
+                        <div class="dismiss-btn">
+                            <button id="dismiss-popup-btn"> Dismiss </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            
+            <script>
+                document.getElementById("open").addEventListener("click",function()
+                {
+                    document.getElementsByClassName("popup")[0].classList.add("");
+                });
+                
+                document.getElementById("dismiss-popup-btn").addEventListener("click",function()
+                {
+                    document.getElementsByClassName("popup")[0].classList.remove("active");
+                });
+                document.getElementById("view").addEventListener("click",function()
+                {
+                    document.getElementsByClassName("popup")[0].classList.SmoothScroll("#Main");
+                });
+            </script>
+
+        </section>
+
+        <!----------------------------- Main ----------------------------------->
+
+        <section id = "Main">
+            <div class = "container">
+                <div class = "Main text-center wow fadeInUp">
+                    <p class = "caption"> Check your facts before you slip on them <br> Validate your articles claim against our Machine learning system to predict its credibility</p>
+                </div>
+            </div>
+
+<!--
+            {% if articles %}
+            <div class = "container">
+                    <table>
+                        <tr class = "th">
+                            <th> Source </th>
+                            <th style="width:70%"> Article </th>
+                            <th> Stance </th>
+                        </tr>
+                            
+                        {% for article in articles %}
+    
+                            <tr class = "tr">
+                                <td> {{ article.pub }} </td>
+                                <td> <a class = "anchor" href ="{{ article.url }}" target="_blank"> {{ article.title }} </a></td>
+                                <td> {{ article.stance }} </td>
+                           </tr>
+    
+                        {% endfor %}
+                    </table>
+            </div>
+            {% endif %}
+-->
+        </section>
+
+        <!-------------------------------------- Features ------------------------------------>
+
+        <section id = "Features">
+            <div class = "container">
+                <h2 class = "text-center wow fadeInDown"><b>Features </b></h2>
+                <div class = "row">
+                    <div class = "col-md-6">
+                        <img src = "{{ url_for('static', filename='images/features_left.jpg') }}" class = "wow fadeinLeft delay-1s">
+                    </div>
+
+                    <div class = "col-md-6">
+
+                        <div class = "Feature box">
+                            <div class = "Feature-right wow fadeinRight delay-1s">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                <span> <h2>  Machine Learning Based Fake News Detection </h2></span>
+                            </div>
+                        </div>
+
+                        <div class = "Feature box">
+                            <div class = "Feature-right wow fadeinRight delay-1s">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                <span> <h2> Lexical Pattern Analysis </h2> </span> 
+                            </div>
+                        </div>
+
+                        <div class = "Feature box">
+                            <div class = "Feature-right wow fadeinRight delay-1s">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                <span> <h2> Hindi Language Articles supported </h2> </span>
+                            </div>
+                        </div>
+
+                        <div class = "Feature box">
+                            <div class = "Feature-right wow fadeinRight delay-1s">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                <span> <h2> Article Verification from Verified Sources </h2> </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-------------------------------------- About Us ------------------------------------>
+
+        <section id = "About">
+            <div class = "container">
+                <h3 class = "text-center wow slideInDown delay-1.2s"> About Us <i class="fa fa-user-circle-o"></i></h3>
+                <div class = "row">
+
+                    <div class = "col-md-3 wow fadeInDown delay-1.2s">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        <p class = "Info"> 
+                            I am Siddhesh Mane <br> I am the Front End Web Developer of this Website. <br>
+                            <i class="fa fa-linkedin-square"></i>
+                            <span> @Siddhesh Mane </span>
+                        </p>
+                        <img src = "{{ url_for('static', filename='images/Siddhesh.png') }}">
+                    </div>
+
+                    <div class = "col-md-3 even wow fadeInUp delay-1.2s">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        <p class = "Info"> 
+                            I am Akash Maurya <br> I am the Back End Web Developer of this Website. <br>
+                            <i class="fa fa-linkedin-square"></i>
+                            <span> @Akash Maurya </span>
+                        </p>
+                        <img src = "{{ url_for('static', filename='images/Akash.png') }}">
+                    </div>
+
+                    <div class = "col-md-3 wow fadeInDown delay-1.2s">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        <p class = "Info"> 
+                            I am Ninad Patil <br> I am the Back End Web Developer of this Website. <br>
+                            <i class="fa fa-linkedin-square"></i>
+                            <span> @Ninad Patil </span>
+                        </p>
+                        <img src = "{{ url_for('static', filename='images/Ninad.png') }}">
+                    </div>
+
+                    <div class = "col-md-3 even wow fadeInUp delay-1.2s">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        <p class = "Info"> 
+                            I am Aynaan Quirashi <br> I am the Machine Learning Developer of this Website. <br>
+                            <i class="fa fa-linkedin-square"></i>
+                            <span> @Aynaan Quraishi </span>
+                        </p>
+                        <img src = "{{ url_for('static', filename='images/Aynaan.png') }}">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!------------------------------------------------- Contact Us -------------------------------------------->
+
+        <section id = "Contact">
+            <div class = "container">
+                <div class = "Contact text-center">
+                    <h2> Contact Us </h2>
+                </div>
+            </div>
+
+            <div class = "container">
+                <div class = "row">
+
+                    <div class = "col-md-2">
+                        <img src = "{{ url_for('static', filename='images/logo.png') }}" class = "logo">
+                        <p> Validate your Article claims through a Machine learning based model and predict the credibility of the news. </p>
+                    </div>
+
+                    <div class="col-md-2 Quick">
+                        <h4> Quick Contact </h4>
+                        <p><i class="fa fa-phone-square" aria-hidden="true"><b> 8652543499 </b> </i></p>
+                        <p><i class="fa fa-whatsapp" aria-hidden="true"><b> 7710914875 </b>  </i></p>
+                        <p><i class="fa fa-home" aria-hidden="true"> <b> Nasa.Pvt.Ltd <br> Linking Road, Malad, Mumbai - 97.</b> </i></p>
+                    </div>
+
+                    <div class="col-md-2 Quick">
+                        <h4> Follow us On </h4>
+                        <p><i class="fa fa-facebook-square" aria-hidden="true"><b> Facebook </b> </i></p>
+                        <p><i class="fa fa-github-square" aria-hidden="true"><b> Github </b>  </i></p>
+                        <p><i class="fa fa-youtube-square" aria-hidden="true"> <b> Youtube </b> </i></p>
+                    </div>
+
+                </div>
+
+                <hr>
+                <p class = "text-center"> @ Copyright 2020 <br> All Rights Reserved ~ Nasa.Pvt.Ltd </p>
+                
+            </div>
+        </section>
+
+        <!--------------------------------------- Smooth Scroll js ------------------------------------>
+
+        <script src = "{{ url_for('static', filename='js/smooth-scroll.js') }}"></script>
+        <script>
+            var scroll = new SmoothScroll('a[href*="#"]');
+        </script>
+
+        <!---------------------------------------- Animations ------------------------------------------>
+
+        <script src = "{{ url_for('static', filename='js/wow.min.js') }}"></script>
+        <script> new WOW().init(); </script>
+        
+    </body>
+</html>

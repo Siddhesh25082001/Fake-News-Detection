@@ -1,0 +1,25 @@
+Apne PC pe kaise dekhu, Ninad???
+
+naya folder banaye
+google drive folder ke saare files iss folder mein daale
+folder pe right click karke "Open in VSCode" kare
+
+Terminal mein yeh likhe :
+
+	python -m virtualenv env
+
+	(usske baad)
+	.\env\Scripts\activate.bat
+
+	(phir)
+	pip install -r requirements.txt
+	(15-20 libraries abhi install ho rahi hain. dhairya rakhe)
+
+	(phir)
+	python app.py
+
+(Terminal mein bohot saari hulchul honi shuru hogi)
+(4 minute model ke files ke unload hone ke liye)
+(tabtak maggi bana le)
+(4-5 munite baad terminal mein URL aayega. Ussko copy karke browser mein daale)
+(PBL PROJECT DEKHE)

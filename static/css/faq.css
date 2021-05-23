@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/******************************************* Navigation bar ****************************************/
+
+.top{
+	background-color: darkslategray;
+	padding: 10px;
+}
+
+.logo{
+    width: 60px;
+    height: 60px;
+}
+
+h1{
+    font-weight: bold;
+    color: #fff;
+    display: inline;
+}
+
+.topnav-right {
+	display: flex;
+	justify-content: space-between;
+	float: right;
+	list-style: none;
+}
+
+.topnav-right .nav-link{
+	color: #fff;
+	font-size: 25px;
+}
+
+/***************************************** FAQ Content *************************************************/
+
+h2{
+	text-align: center;
+	padding: 20px;
+	font-size: 2.5rem;
+}
+
+h3{
+	padding: 20px;
+	padding-left: 0px;
+}
+ 
+.faq{
+	font-size: 20px;
+}
+
+.accordion {
+	width: 90%;
+	max-width: 1000px;
+	margin: 2rem auto;
+}
+  
+.accordion-item {
+	background-color: #fff;
+	color: #111;
+	margin: 1rem 0;
+	border-radius: 0.5rem;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.25);
+}
+
+.accordion-item-header {
+	padding: 0.5rem 3rem 0.5rem 1rem;
+	min-height: 3.5rem;
+	line-height: 1.25rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+}
+  
+.accordion-item-header::after {
+	content: "\002B";
+	font-size: 2rem;
+	position: absolute;
+	right: 1rem;
+}
+  
+.accordion-item-header.active::after {
+	content: "\2212";
+}
+
+.accordion-item-body {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+  
+.accordion-item-body-content {
+	padding: 1rem;
+	line-height: 1.5rem;
+	border-top: 1px solid;
+	border-image: linear-gradient(to right, transparent, #34495e, transparent) 1;
+}
+
+/****************************************** Contact Us ***********************************/
+
+#Contact{
+	margin-top: 80px;
+	height: 160px;
+	margin-bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-image: url(/static/images/Contact.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 72vh;
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bolder;
+}
+
+.Contact{
+    padding: 5px 10px;
+    width: 300px;
+    margin-left: 400px;
+    margin-top: -60px;
+    background-color:#f5f5f5;
+    box-shadow: 0 0 20px 7px rgba(0, 0, 0, 0.4);
+    color: black;
+    font-weight: bold;
+}
+
+#Contact .col-md-2 {
+    margin-left: 100px;
+}
+
+#Contact .Quick{
+    padding-top: 60px;
+    margin-left: 200px;
+    cursor: pointer;
+}
+
+#Contact h4{
+    padding-bottom: 10px;
+}
+
+#Contact hr{
+    text-align: center;
+    border: dotted black 6px;
+    border-bottom: none;
+    width: 8%;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 45%;
+}
+
+.text-center{
+    padding: 20px 0;
+    float: inherit;
+}

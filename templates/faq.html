@@ -1,0 +1,160 @@
+<html>
+
+    <head>
+        <title> Fake News Detector FAQ Page </title>
+        <link rel = "stylesheet" href = "{{ url_for('static', filename='css/faq.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+        <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+    <body>
+
+        <!-----------------------------------------Navigation Bar ----------------------------------------->
+
+        <div class = "top">
+            <a class = "navbar-brand" href = "#">
+                <img class = "logo" src = "{{ url_for('static', filename='images/logo.png') }}"><h1> Fake News Detector </h1>
+            </a>
+            <div class = "topnav-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ url_for('home') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Home
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="{{ url_for('home') + "#Main" }}">Main</a>
+                      <a class="dropdown-item" href="{{ url_for('home') + "#Features" }}">Features</a>
+                      <a class="dropdown-item" href="{{ url_for('home') + "#About" }} ">About Us</a>
+                    </div>
+                  </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">FAQ</a>
+                </li>
+              </div>
+        </div>
+
+        <!------------------------------------------------ FAQ Content ------------------------------------->
+
+        <section>
+            <div class = "container">
+                <h2> Frequently Asked Questions <i class="fa fa-question" aria-hidden="true"></i> </h2>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-item-header"> What is Fake News? </div>
+                <div class="accordion-item-body">
+                    <div class="accordion-item-body-content">
+                        Fake news, also known as junk news, pseudo-news, alternative facts, false news or hoax news, is a form of news consisting of deliberate disinformation or hoaxes spread via traditional news media (print and broadcast) or online social media
+                    </div>
+                </div>
+               </div>
+
+               <div class="accordion-item">
+                   <div class="accordion-item-header"> How does our Project Work? </div>
+                <div class="accordion-item-body">
+                    <div class="accordion-item-body-content">
+                        The Entire Process revolves around two Machine learning models which work at the backend of the website. On entering the url of the desired news to be detected, the article or the news is extracted from that particular site. Then, the article is being predicted as a real article or a fake one based on the classification methods of the model. Coupled with this, an API also works at the backend itsell to sparse keywords from the articles and searches for some relative articles via an API called ‘Event Registry’ that searches related articles based on the keywords extracted.
+                        <br>
+                        Then, the process shifts to the second Machine Learning model that checks the similarity between the extracted article and the articles given by Event Registry. Based on the similarity percentage, if it exceeds the required claim percentage of the article to be true, then it is declared as a Real article or a news. Thus, through the consensus of both the Machine learning models, the decision is executed.
+                    </div>
+                </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-item-header"> Why is it so essential to detect fake news? </div>
+                <div class="accordion-item-body">
+                    <div class="accordion-item-body-content">
+                        <ul style="padding-left: 1rem;">
+                            <li> 600 videos are uploaded on YouTube </li>
+                            <li> 1500 Blog entries are created</li>
+                            <li> 98K Tweets are shared on Twitter</li>
+                            <li> 600K status and posts are created on Facebook</li>
+                            <li> 11 million instant messages are sent on WhatsApp</li>
+                            <li> 160 million mails are sent</li>
+                            <p> And in order to check this all, no man but a Machine can only help</p>
+                        </ul>
+                    </div>
+               </div>
+               </div>
+  
+                <div class="accordion-item">
+                    <div class="accordion-item-header"> What are the Steps to be followed to check the trueness of the Articles </div>
+                <div class="accordion-item-body">
+                    <div class="accordion-item-body-content">
+                        <ul style="padding-left: 1rem;">
+                            <li> Copy the url or article link and Paste it in the url section and click on Predict. </li>
+                            <li> On basis of various facts and studies, the news artcile will be categorized as a Fake News or a Real News</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            
+            <h3> Still Have a Question? </h4>
+            <p class = "faq"> If you have a question which is not answered in the above FAQ, you can email us at <a href = "mailto:siddheshmane025@gmail.com."> siddheshmane025@gmail.com </a>. <br>Please note that we may need some time to answer your question. Thanks for your understanding!</p>
+            </div>
+        </section>
+
+        <script>
+            const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+
+            accordionItemHeaders.forEach(accordionItemHeader => {
+            accordionItemHeader.addEventListener("click", event => {
+    
+            accordionItemHeader.classList.toggle("active");
+            const accordionItemBody = accordionItemHeader.nextElementSibling;
+            if(accordionItemHeader.classList.contains("active")) {
+                accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+            }
+            else {
+                accordionItemBody.style.maxHeight = 0;
+             }
+           });
+         });
+        </script>
+
+        <script src = "https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+        <!---------------------------------------------- Contact Us ------------------------------------>
+
+        <section id = "Contact">
+            <div class = "container">
+                <div class = "Contact">
+                    <h2> Contact Us </h2>
+                </div>
+            </div>
+
+            <div class = "container">
+                <div class = "row">
+
+                    <div class = "col-md-2">
+                        <img src = "{{ url_for('static', filename='images/logo.png') }}" class = "logo">
+                        <p> Validate your Article claims through a Machine learning based model and predict the credibility of the news. </p>
+                    </div>
+
+                    <div class="col-md-2 Quick">
+                        <h4> Quick Contact </h4>
+                        <p><i class="fa fa-phone-square" aria-hidden="true"><b> 8652543499 </b> </i></p>
+                        <p><i class="fa fa-whatsapp" aria-hidden="true"><b> 7710914875 </b>  </i></p>
+                        <p><i class="fa fa-home" aria-hidden="true"> <b> Nasa.Pvt.Ltd <br> Linking Road, Malad, Mumbai - 97.</b> </i></p>
+                    </div>
+
+                    <div class="col-md-2 Quick">
+                        <h4> Follow us On </h4>
+                        <p><i class="fa fa-facebook-square" aria-hidden="true"><b> Facebook </b> </i></p>
+                        <p><i class="fa fa-github-square" aria-hidden="true"><b> Github </b>  </i></p>
+                        <p><i class="fa fa-youtube-square" aria-hidden="true"> <b> Youtube </b> </i></p>
+                    </div>
+
+                </div>
+
+                <hr>
+                <p class = "text-center"> @ Copyright 2020 <br> All Rights Reserved ~ Nasa.Pvt.Ltd </p>
+                
+            </div>
+        </section>
+
+    </body>
+</html>
